@@ -17,6 +17,10 @@ import java.util.List;
 @Service
 public class PlayerServiceImpl implements PlayerService {
 
+    public static final int idIndex = 0;
+    public static final int firstNameIndex = 1;
+    public static final int lastNameIndex = 2;
+
     @Autowired
     CsvService csvService;
 
@@ -58,8 +62,9 @@ public class PlayerServiceImpl implements PlayerService {
         String[] record;
         try {
             while ((record = csvReader.readNext()) != null) {
-                playerModelList.add(new PlayerModel(record[0], record[1], record[2]));
+                playerModelList.add(new PlayerModel(record[idIndex], record[firstNameIndex], record[lastNameIndex]));
             }
+            playerModelList.remove(0);
         }catch (IOException | CsvValidationException e){
             e.printStackTrace();
         }
@@ -69,11 +74,10 @@ public class PlayerServiceImpl implements PlayerService {
     PlayerModel searchPlayerModel(CSVReader reader, String playerId){
         PlayerModel playerModel = null;
         String[] record;
-
         try {
             while ((record = reader.readNext()) != null) {
-                if (record[0].equals(playerId)) {
-                    playerModel = new PlayerModel(record[0], record[1], record[2]);
+                if (record[idIndex].equals(playerId)) {
+                    playerModel = new PlayerModel(record[idIndex], record[firstNameIndex], record[lastNameIndex]);
                     break;
                 }
             }
