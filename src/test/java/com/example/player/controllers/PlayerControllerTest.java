@@ -1,7 +1,6 @@
 package com.example.player.controllers;
 
 import com.example.player.constants.MessageConstants;
-import com.example.player.controllers.PlayerController;
 import com.example.player.exceptions.NoPlayersFoundException;
 import com.example.player.exceptions.PlayerNotFoundException;
 import com.example.player.models.PlayerModel;
