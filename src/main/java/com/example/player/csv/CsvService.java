@@ -1,6 +1,7 @@
 package com.example.player.csv;
 
 import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +12,11 @@ import java.io.InputStreamReader;
 @Service
 public class CsvService {
 
-    public CSVReader getCsvReader() {
+    public CSVReader getCsvReader(String fileName) {
         CSVReader csvReader = null;
         try {
-            InputStream in = new ClassPathResource("players.csv").getInputStream();
-            csvReader = new CSVReader(new InputStreamReader(in, "UTF-8"));
+            InputStream in = new ClassPathResource(fileName).getInputStream();
+            csvReader = new CSVReaderBuilder(new InputStreamReader(in, "UTF-8")).withSkipLines(1).build();
         }
         catch(IOException e){
             e.printStackTrace();
