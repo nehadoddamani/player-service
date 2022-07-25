@@ -1,6 +1,8 @@
 package com.example.player.controllers;
 
 import com.example.player.constants.MessageConstants;
+import com.example.player.entities.EntityModelMapper;
+import com.example.player.entities.PlayerEntity;
 import com.example.player.exceptions.NoPlayersFoundException;
 import com.example.player.exceptions.PlayerNotFoundException;
 import com.example.player.models.PlayerModel;
@@ -37,9 +39,10 @@ public class PlayerControllerTest {
 
     }
 
-    String mockPlayerValue = "PlayerModel(id=PLYR001, firstName=James, lastName=Walker)";
+    String mockPlayerValue = "PlayerModel(id=PLYR001, firstName=James, lastName=Walker, fullName=James Walker)";
+    String mockPlayerValue1 = "PlayerModel(id=PLYR001, firstName=James, lastName=null, fullName=null)";
 
-    PlayerModel mockPlayerModel = new PlayerModel("PLYR001","James","Walker");
+    PlayerEntity mockPlayerEntity = new PlayerEntity("PLYR001","James","Walker");
 
     @Test
     public void getPlayerByIdTest(){
@@ -49,7 +52,7 @@ public class PlayerControllerTest {
 
     @Test
     public void getPlayerByIdTestPositive(){
-        when(playerService.getPlayerById("PLYR001")).thenReturn(mockPlayerModel);
+        when(playerService.getPlayerById("PLYR001")).thenReturn(EntityModelMapper.mapPlayerModel(mockPlayerEntity));
         Assert.assertEquals(playerController.getPlayerById("PLYR001").toString(),mockPlayerValue);
     }
 
@@ -62,8 +65,8 @@ public class PlayerControllerTest {
     @Test
     public void getAllPlayersTestPositive(){
         List<PlayerModel> playerModelList = new ArrayList<>();
-        playerModelList.add(mockPlayerModel);
+        playerModelList.add(new PlayerModel(mockPlayerEntity.getId(),mockPlayerEntity.getFirstName()));
         when(playerService.getAllPlayers()).thenReturn(playerModelList);
-        Assert.assertEquals(playerController.getAllPlayers().toString(),"["+mockPlayerValue+"]");
+        Assert.assertEquals(playerController.getAllPlayers().toString(),"["+mockPlayerValue1+"]");
     }
 }
