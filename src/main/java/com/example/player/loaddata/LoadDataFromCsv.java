@@ -6,6 +6,7 @@ import com.example.player.repos.PlayerRepository;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,8 @@ public class LoadDataFromCsv implements ApplicationRunner {
     @Autowired
     private Map<String, PlayerEntity> playersMap;
 
-    public static final String fileName = "players.csv";
+    @Value("${app.csv.path}")
+    private String fileName;
 
     public static final int idIndex = 0;
     public static final int firstNameIndex = 1;

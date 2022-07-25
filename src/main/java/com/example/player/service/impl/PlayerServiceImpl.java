@@ -19,9 +19,6 @@ import java.util.stream.Collectors;
 public class PlayerServiceImpl implements PlayerService {
 
     @Autowired
-    CsvService csvService;
-
-    @Autowired
     PlayerRepository playerRepository;
 
     @Override
